@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block page_title %}
+    Lista de Notas
+{% endblock page_title %}
+{% block content %}
+    <div class="flex justify-center">
+        <button class="px-3 py-1 mt-2 rounded active:scale-110 bg-cyan-500 text-white font-bold cursor-pointer">
+            <a href="{% url 'create_note' %}">Criar Nova Nota</a>
+        </button>
+    </div>
+    <h1 class="text-gray-700 text-5xl">Lista de Notas</h1>
+    
+
+<div class="relative overflow-x-auto">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3 text-center">
+                    Nota
+                </th>
+                <th scope="col" class="px-6 py-3 text-center">
+                    Criado em
+                </th>
+                <th scope="col" class="px-6 py-3  text-center">
+                    Importante
+                </th>
+                <th scope="col" class="px-6 py-3 text-center">
+                    Detalhes
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for note in note_list %}
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 text-center">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{note.title}}
+                    </th>
+                    <td class="px-6 py-4">
+                        {{note.created_at}}
+                    </td>
+                    <td class="px-6 py-4 flex justify-center items-center">
+                        {% if note.important %}
+                            <div class="w-[0.75rem] h-[0.75rem] rounded-full bg-green-400"></div>
+                        {% endif %}
+                    </td>
+                    <td class="px-6 py-4">
+                        <a href="{% url 'details_note' pk=note.pk %}">
+                            <button class="w-[6rem] h-[1.75rem] bg-gray-700 rounded font-extrabold text-xl">
+                                +
+                             </button>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            
+        </tbody>
+    </table>
+</div>
+
+             
+{% endblock content %}
+
